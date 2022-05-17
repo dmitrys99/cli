@@ -402,13 +402,13 @@ func (cmd *Command) defaultUsageFn(ctx *Context) string {
 	argvList := cmd.argvList()
 	isEmpty := isEmptyArgvList(argvList)
 	if !isEmpty {
-		fmt.Fprintf(buff, "%s:\n\n%s", clr.Bold("Options"), usage(argvList, clr, style))
+		fmt.Fprintf(buff, "%s:\n\n%s", clr.Bold("Параметры"), usage(argvList, clr, style))
 	}
 	if cmd.children != nil && len(cmd.children) > 0 {
 		if !isEmpty {
 			buff.WriteByte('\n')
 		}
-		fmt.Fprintf(buff, "%s:\n\n%v", clr.Bold("Commands"), cmd.ChildrenDescriptions("  ", "   "))
+		fmt.Fprintf(buff, "%s:\n\n%v", clr.Bold("Команды"), cmd.ChildrenDescriptions("  ", "   "))
 	}
 	tmpUsage = buff.String()
 	cmd.locker.Lock()

@@ -167,10 +167,7 @@ func (ctx *Context) GetArgvAt(argv interface{}, i int) error {
 	return json.NewDecoder(buf).Decode(argv)
 }
 
-// IsSet determines whether `flag` was given as a program argument.
-// Example: IsSet("-v") or IsSet("--version")
-//   `./app` will return false
-//   `./app --version` will return true
+// IsSet determins whether `flag` is set
 func (ctx *Context) IsSet(flag string, aliasFlags ...string) bool {
 	fl, ok := ctx.flagSet.flagMap[flag]
 	if ok {
@@ -227,11 +224,7 @@ func (ctx *Context) Color() *color.Color {
 
 // String writes formatted string to writer
 func (ctx *Context) String(format string, args ...interface{}) *Context {
-	if len(args) == 0 {
-		fmt.Fprint(ctx.Writer(), format)
-	} else {
-		fmt.Fprintf(ctx.Writer(), format, args...)
-	}
+	fmt.Fprintf(ctx.Writer(), format, args...)
 	return ctx
 }
 

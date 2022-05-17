@@ -175,7 +175,7 @@ func initFlagSet(typ reflect.Type, val reflect.Value, flagSet *flagSet, clr colo
 		names := append(fl.tag.shortNames, fl.tag.longNames...)
 		for i, name := range names {
 			if _, ok := flagSet.flagMap[name]; ok {
-				flagSet.err = fmt.Errorf("option %s repeated", clr.Bold(name))
+				flagSet.err = fmt.Errorf("Повтор параметра %s", clr.Bold(name))
 				return
 			}
 			flagSet.flagMap[name] = fl
@@ -211,7 +211,7 @@ func parseArgsToFlagSet(args []string, flagSet *flagSet, clr color.Color) {
 		}
 
 		if arg == dashOne {
-			flagSet.err = fmt.Errorf("unexpected single dash")
+			flagSet.err = fmt.Errorf("Неожиданный одиночный минус")
 			return
 		}
 
@@ -244,7 +244,7 @@ func parseArgsToFlagSet(args []string, flagSet *flagSet, clr color.Color) {
 		// not found in flagMap
 		// it's an invalid flag if arg has prefix `--`
 		if strings.HasPrefix(arg, dashTwo) {
-			flagSet.err = fmt.Errorf("undefined option %s", clr.Bold(arg))
+			flagSet.err = fmt.Errorf("Неизвестный параметр %s", clr.Bold(arg))
 			return
 		}
 
@@ -300,7 +300,7 @@ func parseArgsToFlagSet(args []string, flagSet *flagSet, clr color.Color) {
 			if buff.Len() > 0 {
 				buff.WriteByte('\n')
 			}
-			fmt.Fprintf(buff, "required parameter %s missing", clr.Bold(fl.name()))
+			fmt.Fprintf(buff, "Отсутствует обязательный параметр %s", clr.Bold(fl.name()))
 		}
 	}
 	if buff.Len() > 0 && !flagSet.hasForce {
@@ -343,7 +343,7 @@ func parseFlagCharByChar(flagSet *flagSet, arg string, clr color.Color) {
 		tmp := dashOne + string([]byte{c})
 		fl, ok := flagSet.flagMap[tmp]
 		if !ok {
-			flagSet.err = fmt.Errorf("undefined option %s", clr.Bold(tmp))
+			flagSet.err = fmt.Errorf("Неизвестный параметр %s", clr.Bold(tmp))
 			return
 		}
 
