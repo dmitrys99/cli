@@ -1,4 +1,4 @@
-module github.com/mkideal/cli
+module github.com/dmitrys99/cli
 
 go 1.13
 
